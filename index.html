@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+
+body{
+margin:0;
+font-family:sans-serif;
+background:transparent;
+display:flex;
+justify-content:center;
+}
+
+.container{
+text-align:center;
+background:#fff7ed;
+padding:20px;
+border-radius:16px;
+width:260px;
+box-shadow:0 6px 14px rgba(0,0,0,0.08);
+}
+
+.title{
+font-weight:700;
+margin-bottom:10px;
+}
+
+.jar{
+position:relative;
+width:140px;
+height:180px;
+margin:10px auto;
+}
+
+.jar svg{
+position:absolute;
+left:0;
+top:0;
+z-index:2;
+}
+
+.fill{
+position:absolute;
+bottom:20px;
+left:22px;
+width:96px;
+height:40%;
+background:linear-gradient(#fdba74,#f97316);
+border-radius:0 0 30px 30px;
+z-index:1;
+transition:height 0.6s;
+}
+
+.percent{
+margin-top:8px;
+font-size:14px;
+color:#444;
+}
+
+.amount{
+font-size:13px;
+color:#666;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="title">🍊 썬귤 저금통</div>
+
+<div class="jar">
+
+<div class="fill" id="fill"></div>
+
+<svg width="140" height="180" viewBox="0 0 140 180">
+<path d="M20 40
+Q20 10 70 10
+Q120 10 120 40
+L120 140
+Q120 170 70 170
+Q20 170 20 140 Z"
+fill="none"
+stroke="#f97316"
+stroke-width="6"/>
+</svg>
+
+</div>
+
+<div class="percent">
+저축 진행률 <b id="percent">0%</b>
+</div>
+
+<div class="amount">
+<span id="saved"></span> / <span id="goal"></span> 원
+</div>
+
+</div>
+
+<script>
+
+let saved = 40000
+let goal = 100000
+
+let percent = Math.min((saved/goal)*100,100)
+
+document.getElementById("fill").style.height = percent + "%"
+document.getElementById("percent").innerText = Math.round(percent) + "%"
+document.getElementById("saved").innerText = saved.toLocaleString()
+document.getElementById("goal").innerText = goal.toLocaleString()
+
+</script>
+
+</body>
+</html>
