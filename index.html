@@ -6,19 +6,21 @@
 
 body{
 margin:0;
-font-family:sans-serif;
+font-family:Arial;
 background:transparent;
 display:flex;
 justify-content:center;
+align-items:center;
+height:100vh;
 }
 
-.container{
-text-align:center;
+.card{
 background:#fff7ed;
 padding:20px;
-border-radius:16px;
+border-radius:18px;
 width:260px;
-box-shadow:0 6px 14px rgba(0,0,0,0.08);
+text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
 }
 
 .title{
@@ -30,37 +32,65 @@ margin-bottom:10px;
 position:relative;
 width:140px;
 height:180px;
-margin:10px auto;
+margin:0 auto;
 }
 
-.jar svg{
+.outline{
 position:absolute;
-left:0;
-top:0;
-z-index:2;
+z-index:3;
 }
 
 .fill{
 position:absolute;
-bottom:20px;
+bottom:22px;
 left:22px;
 width:96px;
-height:40%;
+height:0%;
 background:linear-gradient(#fdba74,#f97316);
-border-radius:0 0 30px 30px;
+border-radius:0 0 28px 28px;
+transition:height 1s ease;
 z-index:1;
-transition:height 0.6s;
 }
 
-.percent{
-margin-top:8px;
+.coin{
+position:absolute;
+font-size:18px;
+top:-10px;
+left:60px;
+opacity:0;
+animation:drop 1.2s ease forwards;
+}
+
+@keyframes drop{
+0%{transform:translateY(-20px);opacity:0}
+40%{opacity:1}
+100%{transform:translateY(80px);opacity:0}
+}
+
+.progress{
+margin-top:10px;
 font-size:14px;
-color:#444;
+}
+
+.bar{
+height:10px;
+background:#fde7cf;
+border-radius:10px;
+margin-top:6px;
+overflow:hidden;
+}
+
+.barfill{
+height:100%;
+background:#f97316;
+width:0%;
+transition:width 1s;
 }
 
 .amount{
+margin-top:8px;
 font-size:13px;
-color:#666;
+color:#555;
 }
 
 </style>
@@ -68,15 +98,17 @@ color:#666;
 
 <body>
 
-<div class="container">
+<div class="card">
 
 <div class="title">🍊 썬귤 저금통</div>
 
 <div class="jar">
 
+<div class="coin">🪙</div>
+
 <div class="fill" id="fill"></div>
 
-<svg width="140" height="180" viewBox="0 0 140 180">
+<svg class="outline" width="140" height="180">
 <path d="M20 40
 Q20 10 70 10
 Q120 10 120 40
@@ -90,8 +122,14 @@ stroke-width="6"/>
 
 </div>
 
-<div class="percent">
-저축 진행률 <b id="percent">0%</b>
+<div class="progress">
+
+<b id="percent">0%</b>
+
+<div class="bar">
+<div class="barfill" id="barfill"></div>
+</div>
+
 </div>
 
 <div class="amount">
@@ -107,10 +145,15 @@ let goal = 100000
 
 let percent = Math.min((saved/goal)*100,100)
 
-document.getElementById("fill").style.height = percent + "%"
-document.getElementById("percent").innerText = Math.round(percent) + "%"
-document.getElementById("saved").innerText = saved.toLocaleString()
-document.getElementById("goal").innerText = goal.toLocaleString()
+document.getElementById("fill").style.height = percent+"%"
+document.getElementById("barfill").style.width = percent+"%"
+document.getElementById("percent").innerText = Math.round(percent)+"%"
+
+document.getElementById("saved").innerText =
+saved.toLocaleString()
+
+document.getElementById("goal").innerText =
+goal.toLocaleString()
 
 </script>
 
