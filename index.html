@@ -27,7 +27,6 @@ box-shadow:0 6px 14px rgba(0,0,0,0.08);
 .title{
 font-weight:700;
 margin-bottom:10px;
-font-size:18px;
 }
 
 button{
@@ -38,31 +37,18 @@ padding:10px 16px;
 border-radius:10px;
 cursor:pointer;
 margin-top:10px;
-font-size:14px;
-}
-
-button:disabled{
-background:#ccc;
-cursor:not-allowed;
 }
 
 .result{
 margin-top:15px;
 font-size:15px;
 font-weight:600;
-line-height:1.4;
 }
 
 img{
 margin-top:12px;
 width:200px;
 border-radius:10px;
-}
-
-.notice{
-margin-top:10px;
-font-size:12px;
-color:#888;
 }
 
 </style>
@@ -75,27 +61,15 @@ color:#888;
 
 <div class="title">🍊 오늘의 세이브 챌린지</div>
 
-<button id="drawBtn" onclick="draw()">오늘의 운세 뽑기</button>
+<button onclick="draw()">오늘의 운세 뽑기</button>
 
 <div class="result" id="text"></div>
 
 <img id="image" style="display:none">
 
-<div class="notice" id="notice"></div>
-
 </div>
 
 <script>
-
-const today = new Date().toDateString()
-const savedDate = localStorage.getItem("fortuneDate")
-
-if(savedDate === today){
-
-document.getElementById("drawBtn").disabled = true
-document.getElementById("notice").innerText = "오늘은 이미 운세를 확인했어요! 내일 다시 도전하세요 🍊"
-
-}
 
 function draw(){
 
@@ -114,28 +88,28 @@ img = "https://아이디.github.io/save-challenge/coffee.png"
 else if(r < 0.45){
 
 text = "🍺 오늘 혹시 술 땡겼어?!"
-img = "https://아이디.github.io/save-challenge/alchol.png"
+img = "https://ssungyul.github.io/save-challenge/alchol.png"
 
 }
 
 else if(r < 0.675){
 
 text = "🚬 이제 노담 가보자!"
-img = "https://아이디.github.io/save-challenge/cigarette.png"
+img = "https://ssungyul.github.io/save-challenge/cigarette.png"
 
 }
 
 else if(r < 0.9){
 
 text = "🥐 빵이 라면보다 더 살찐대!"
-img = "https://아이디.github.io/save-challenge/bread.png"
+img = "https://ssungyul.github.io/save-challenge/bread.png"
 
 }
 
 else{
 
-text = "🎉 오늘은 자유의 날! 추카추카!"
-img = "https://아이디.github.io/save-challenge/free.png"
+text = "🎉 오늘은 자유의 날!!"
+img = "https://ssungyul.github.io/save-challenge/free.png"
 
 }
 
@@ -144,12 +118,6 @@ document.getElementById("text").innerText = text
 let image = document.getElementById("image")
 image.src = img
 image.style.display = "block"
-
-document.getElementById("drawBtn").disabled = true
-
-localStorage.setItem("fortuneDate", today)
-
-document.getElementById("notice").innerText = "오늘 운세 완료! 내일 다시 도전하세요 🍊"
 
 }
 
