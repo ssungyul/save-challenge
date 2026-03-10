@@ -109,15 +109,30 @@ typing()
 function beep(){
 
 let ctx = new AudioContext()
-let oscillator = ctx.createOscillator()
 
-oscillator.type = "square"
-oscillator.frequency.setValueAtTime(800, ctx.currentTime)
+function play(freq, time){
 
-oscillator.connect(ctx.destination)
-oscillator.start()
+let osc = ctx.createOscillator()
 
-setTimeout(()=>oscillator.stop(),120)
+osc.type = "square"
+osc.frequency.setValueAtTime(freq, ctx.currentTime)
+
+osc.connect(ctx.destination)
+osc.start()
+
+setTimeout(()=>osc.stop(),time)
+
+}
+
+play(900,120)
+
+setTimeout(()=>{
+play(700,120)
+},130)
+
+setTimeout(()=>{
+play(1000,150)
+},260)
 
 }
 
