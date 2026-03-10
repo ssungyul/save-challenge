@@ -50,7 +50,8 @@ color:#000;
 margin-top:14px;
 color:#00ff9c;
 font-size:14px;
-line-height:1.4;
+line-height:1.5;
+min-height:40px;
 }
 
 img{
@@ -82,7 +83,53 @@ margin-right:auto;
 
 <script>
 
+function typeWriter(text){
+
+let i = 0
+let speed = 40
+
+document.getElementById("text").innerHTML=""
+
+function typing(){
+
+if(i < text.length){
+
+document.getElementById("text").innerHTML += text.charAt(i)
+i++
+setTimeout(typing, speed)
+
+}
+
+}
+
+typing()
+
+}
+
+function beep(){
+
+let ctx = new AudioContext()
+let oscillator = ctx.createOscillator()
+
+oscillator.type = "square"
+oscillator.frequency.setValueAtTime(800, ctx.currentTime)
+
+oscillator.connect(ctx.destination)
+oscillator.start()
+
+setTimeout(()=>oscillator.stop(),120)
+
+}
+
 function draw(){
+
+document.getElementById("text").innerHTML="> 운세 계산중..."
+
+document.getElementById("image").style.display="none"
+
+beep()
+
+setTimeout(()=>{
 
 let r = Math.random()
 
@@ -91,44 +138,48 @@ let img = ""
 
 if(r < 0.225){
 
-text = "☕️ 오늘은 커피 참기!!"
+text = "> 오늘은 커피 참기!!"
 img = "https://ssungyul.github.io/save-challenge/coffee.png"
 
 }
 
 else if(r < 0.45){
 
-text = "🍺 오늘 혹시 술 땡겼어?!"
+text = "> 오늘 혹시 술 땡겼어?!"
 img = "https://ssungyul.github.io/save-challenge/alchol.png"
 
 }
 
 else if(r < 0.675){
 
-text = "🚬 이제 노담 가보자!"
+text = "> 이제 노담 가보자!"
 img = "https://ssungyul.github.io/save-challenge/cigarette.png"
 
 }
 
 else if(r < 0.9){
 
-text = "🥐 빵이 라면보다 더 살찐대!"
+text = "> 빵이 라면보다 더 살찐대!"
 img = "https://ssungyul.github.io/save-challenge/bread.png"
 
 }
 
 else{
 
-text = "🎉 오늘은 자유의 날! 추카추카!"
+text = "> 오늘은 자유의 날! 추카추카!"
 img = "https://ssungyul.github.io/save-challenge/free.png"
 
 }
 
-document.getElementById("text").innerText = text
+typeWriter(text)
 
 let image = document.getElementById("image")
+
 image.src = img
+
 image.style.display = "block"
+
+},700)
 
 }
 
