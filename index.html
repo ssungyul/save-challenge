@@ -54,6 +54,15 @@ line-height:1.5;
 min-height:40px;
 }
 
+/* 아이콘 줄 */
+.icons{
+margin-top:12px;
+font-size:22px;
+display:flex;
+justify-content:center;
+gap:10px;
+}
+
 img{
 margin-top:12px;
 width:200px;
@@ -74,6 +83,11 @@ margin-right:auto;
 <div class="title">[ SAVE CHALLENGE ]</div>
 
 <button onclick="draw()">운세 뽑기</button>
+
+<!-- 처음 화면 아이콘 -->
+<div class="icons" id="icons">
+☕ 🍺 🥐 🚬
+</div>
 
 <div class="result" id="text"></div>
 
@@ -126,6 +140,9 @@ function draw(){
 document.getElementById("text").innerHTML="> 운세 계산중..."
 
 document.getElementById("image").style.display="none"
+
+/* 아이콘 숨기기 */
+document.getElementById("icons").style.display="none"
 
 beep()
 
