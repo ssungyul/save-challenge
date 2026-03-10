@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
+
 <style>
 
 body{
 margin:0;
-font-family:Arial;
+font-family:sans-serif;
 background:transparent;
 display:flex;
 justify-content:center;
@@ -15,145 +16,142 @@ height:100vh;
 }
 
 .card{
-background:#fff7ed;
-padding:20px;
-border-radius:18px;
 width:260px;
+background:#fff7ed;
+border-radius:16px;
+padding:20px;
 text-align:center;
-box-shadow:0 8px 20px rgba(0,0,0,0.08);
+box-shadow:0 6px 14px rgba(0,0,0,0.08);
 }
 
 .title{
 font-weight:700;
 margin-bottom:10px;
-}
-
-.jar{
-position:relative;
-width:140px;
-height:180px;
-margin:0 auto;
-}
-
-.outline{
-position:absolute;
-z-index:3;
-}
-
-.fill{
-position:absolute;
-bottom:22px;
-left:22px;
-width:96px;
-height:0%;
-background:linear-gradient(#fdba74,#f97316);
-border-radius:0 0 28px 28px;
-transition:height 1s ease;
-z-index:1;
-}
-
-.coin{
-position:absolute;
 font-size:18px;
-top:-10px;
-left:60px;
-opacity:0;
-animation:drop 1.2s ease forwards;
 }
 
-@keyframes drop{
-0%{transform:translateY(-20px);opacity:0}
-40%{opacity:1}
-100%{transform:translateY(80px);opacity:0}
-}
-
-.progress{
+button{
+background:#f97316;
+border:none;
+color:white;
+padding:10px 16px;
+border-radius:10px;
+cursor:pointer;
 margin-top:10px;
 font-size:14px;
 }
 
-.bar{
-height:10px;
-background:#fde7cf;
+button:disabled{
+background:#ccc;
+cursor:not-allowed;
+}
+
+.result{
+margin-top:15px;
+font-size:15px;
+font-weight:600;
+line-height:1.4;
+}
+
+img{
+margin-top:12px;
+width:200px;
 border-radius:10px;
-margin-top:6px;
-overflow:hidden;
 }
 
-.barfill{
-height:100%;
-background:#f97316;
-width:0%;
-transition:width 1s;
-}
-
-.amount{
-margin-top:8px;
-font-size:13px;
-color:#555;
+.notice{
+margin-top:10px;
+font-size:12px;
+color:#888;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="card">
 
-<div class="title">🍊 썬귤 저금통</div>
+<div class="title">🍊 오늘의 세이브 챌린지</div>
 
-<div class="jar">
+<button id="drawBtn" onclick="draw()">오늘의 운세 뽑기</button>
 
-<div class="coin">🪙</div>
+<div class="result" id="text"></div>
 
-<div class="fill" id="fill"></div>
+<img id="image" style="display:none">
 
-<svg class="outline" width="140" height="180">
-<path d="M20 40
-Q20 10 70 10
-Q120 10 120 40
-L120 140
-Q120 170 70 170
-Q20 170 20 140 Z"
-fill="none"
-stroke="#f97316"
-stroke-width="6"/>
-</svg>
-
-</div>
-
-<div class="progress">
-
-<b id="percent">0%</b>
-
-<div class="bar">
-<div class="barfill" id="barfill"></div>
-</div>
-
-</div>
-
-<div class="amount">
-<span id="saved"></span> / <span id="goal"></span> 원
-</div>
+<div class="notice" id="notice"></div>
 
 </div>
 
 <script>
 
-let saved = 40000
-let goal = 100000
+const today = new Date().toDateString()
+const savedDate = localStorage.getItem("fortuneDate")
 
-let percent = Math.min((saved/goal)*100,100)
+if(savedDate === today){
 
-document.getElementById("fill").style.height = percent+"%"
-document.getElementById("barfill").style.width = percent+"%"
-document.getElementById("percent").innerText = Math.round(percent)+"%"
+document.getElementById("drawBtn").disabled = true
+document.getElementById("notice").innerText = "오늘은 이미 운세를 확인했어요! 내일 다시 도전하세요 🍊"
 
-document.getElementById("saved").innerText =
-saved.toLocaleString()
+}
 
-document.getElementById("goal").innerText =
-goal.toLocaleString()
+function draw(){
+
+let r = Math.random()
+
+let text = ""
+let img = ""
+
+if(r < 0.225){
+
+text = "☕ 오늘은 커피 참기!!"
+img = "https://아이디.github.io/save-challenge/coffee.png"
+
+}
+
+else if(r < 0.45){
+
+text = "🍺 오늘 혹시 술 땡겼어?!"
+img = "https://아이디.github.io/save-challenge/alchol.png"
+
+}
+
+else if(r < 0.675){
+
+text = "🚬 이제 노담 가보자!"
+img = "https://아이디.github.io/save-challenge/cigarette.png"
+
+}
+
+else if(r < 0.9){
+
+text = "🥐 빵이 라면보다 더 살찐대!"
+img = "https://아이디.github.io/save-challenge/bread.png"
+
+}
+
+else{
+
+text = "🎉 오늘은 자유의 날! 추카추카!"
+img = "https://아이디.github.io/save-challenge/free.png"
+
+}
+
+document.getElementById("text").innerText = text
+
+let image = document.getElementById("image")
+image.src = img
+image.style.display = "block"
+
+document.getElementById("drawBtn").disabled = true
+
+localStorage.setItem("fortuneDate", today)
+
+document.getElementById("notice").innerText = "오늘 운세 완료! 내일 다시 도전하세요 🍊"
+
+}
 
 </script>
 
