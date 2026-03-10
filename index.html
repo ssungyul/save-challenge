@@ -3,52 +3,70 @@
 <head>
 <meta charset="UTF-8">
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+
 <style>
 
 body{
 margin:0;
-font-family:sans-serif;
-background:transparent;
+background:#000;
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
+font-family:'Galmuri11', monospace;
 }
 
 .card{
 width:260px;
-background:#fff7ed;
-border-radius:16px;
-padding:20px;
+background:#000;
+border:2px solid #00ff9c;
+padding:18px;
 text-align:center;
-box-shadow:0 6px 14px rgba(0,0,0,0.08);
+box-shadow:0 0 15px #00ff9c;
 }
 
 .title{
-font-weight:700;
-margin-bottom:10px;
+color:#00ff9c;
+font-size:16px;
+margin-bottom:12px;
 }
 
 button{
-background:#f97316;
-border:none;
-color:white;
-padding:10px 16px;
-border-radius:10px;
+font-family:'Galmuri11';
+background:#000;
+color:#00ff9c;
+border:2px solid #00ff9c;
+padding:8px 14px;
 cursor:pointer;
-margin-top:10px;
+}
+
+button:hover{
+background:#00ff9c;
+color:#000;
+}
+
+button:disabled{
+opacity:0.5;
 }
 
 .result{
-margin-top:15px;
-font-size:15px;
-font-weight:600;
+margin-top:14px;
+color:#00ff9c;
+font-size:14px;
+line-height:1.4;
 }
 
 img{
 margin-top:12px;
 width:200px;
-border-radius:10px;
+border:2px solid #00ff9c;
+}
+
+.notice{
+margin-top:10px;
+font-size:12px;
+color:#00ff9c;
 }
 
 </style>
@@ -59,17 +77,29 @@ border-radius:10px;
 
 <div class="card">
 
-<div class="title">🍊 오늘의 세이브 챌린지</div>
+<div class="title">[ SAVE CHALLENGE ]</div>
 
-<button onclick="draw()">오늘의 운세 뽑기</button>
+<button id="drawBtn" onclick="draw()">운세 뽑기</button>
 
 <div class="result" id="text"></div>
 
 <img id="image" style="display:none">
 
+<div class="notice" id="notice"></div>
+
 </div>
 
 <script>
+
+const today = new Date().toDateString()
+const savedDate = localStorage.getItem("fortuneDate")
+
+if(savedDate === today){
+
+document.getElementById("drawBtn").disabled = true
+document.getElementById("notice").innerText = "오늘 운세 완료! 내일 다시 도전하세요."
+
+}
 
 function draw(){
 
@@ -108,7 +138,7 @@ img = "https://ssungyul.github.io/save-challenge/bread.png"
 
 else{
 
-text = "🎉 오늘은 자유의 날!!"
+text = "🎉 오늘은 자유의 날! 추카추카!"
 img = "https://ssungyul.github.io/save-challenge/free.png"
 
 }
@@ -118,6 +148,12 @@ document.getElementById("text").innerText = text
 let image = document.getElementById("image")
 image.src = img
 image.style.display = "block"
+
+document.getElementById("drawBtn").disabled = true
+
+localStorage.setItem("fortuneDate", today)
+
+document.getElementById("notice").innerText = "내일 다시 도전하세요."
 
 }
 
